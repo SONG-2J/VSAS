@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>vsasLogin</title>
+    {% include 'tools.html' %}
+</head>
+<body>
+<div class="container col-center">
+    <div class="container low-center" style="width: 500px;height: 300px;">
+        {% csrf_token %}
+        <form id="loginForm" role="form" class="form-horizontal" method="post">
+            <div class="form-group center-block">
+                <label for="username" class="col-sm-2 control-label">用户名: </label>
+                <div class="col-sm-3">
+                    <input name="username" value="{{ username }}" id="username" type="text" class="form-control" style="width: 250px" placeholder="username">
+                </div>
+                <span id="spanErrMsg01" style="color: red">{{ errMsg_username }}</span>
+            </div>
+
+            <br>
+
+            <div class="form-group center-block">
+                <label for="password" class="col-sm-2 control-label">密码: </label>
+                <div class="col-sm-3">
+                    <input name="password" value="{{ password }}" id="password" type="text" class="form-control" style="width: 250px"  placeholder="password">
+                </div>
+                <span id="spanErrMsg02" style="color: red">{{ errMsg_password }}</span>
+            </div>
+
+            <br>
+
+            <div class="container">
+                <button type="submit" class="btn btn-info">登录</button>
+
+                <button class="btn btn-default">注册</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

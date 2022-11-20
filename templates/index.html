@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+    {% include 'tools.html' %}
+
+</head>
+<body>
+<!--头部导航栏-->
+<div class="col-sm-12">
+    {% include 'header.html' %}
+</div>
+
+<!--主体-->
+<div class="col-sm-12">
+    <!--侧边栏-->
+    <div class="col-sm-1 thumbnail navbar-left" style="height: 750px;background-color: #3c3c3c">
+        {% include 'sideBar.html' %}
+    </div>
+
+    <!--显示部分-->
+    <div class="col-sm-11 thumbnail pre-scrollable" style="max-height: 750px" id="show">
+        {%  if where == 'Project'  %}
+            {% if project_name is None %}
+                 {% include 'show/project.html' %}
+            {% elif project_name == '1818可视化' %}
+                {% include 'project/1818可视化.html' %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+<!--页脚-->
+<div class="col-sm-12 align-content-center navbar-fixed-bottom" style="background-color: #3c3c3c">
+    {% include 'footer.html' %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!--左侧导航栏-->
+<ul class="nav nav-pills nav-stacked text-center mySideBar">
+    <li>
+        <br>
+    </li>
+
+    <li class="active">
+        <a href="{% url 'index' username 'DashBoard' %}">
+            <span class="glyphicon glyphicon-home" aria-hidden="false"></span>
+            DashBoard
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'index' username 'Project' %}">
+            <span class="glyphicon glyphicon-list-alt" aria-hidden="false"></span>
+            Project
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'index' username 'Table' %}">
+            <span class="glyphicon glyphicon-file" aria-hidden="false"></span>
+            Table
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'index' username 'Create' %}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="false"></span>
+            Create
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'index' username 'Other' %}">
+            <span class="glyphicon glyphicon-minus" aria-hidden="false"></span>
+            Other
+        </a>
+    </li>
+</ul>
+
+<script>
+    $(function () {
+        $(".mySideBar").find("li").each(function () {
+            var a = $(this).find("a:first")[0];
+            if ($(a).attr("href") === location.pathname) {
+                $(this).addClass("active");
+            } else {
+                $(this).removeClass("active");
+            }
+        });
+    })
+</script>

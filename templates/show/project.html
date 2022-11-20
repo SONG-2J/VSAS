@@ -1,0 +1,16 @@
+<div class="list-group">
+    <a href="#" class="list-group-item active">
+        <h4 class="list-group-item-heading">
+            用户
+            <span style="color: #ff4500">{{ username }}</span>
+            拥有的项目
+        </h4>
+    </a>
+    {% for p in projects %}
+    <a href="{% url 'projectShow' username p.project_name %}" class="list-group-item">
+        <h4 class="list-group-item-heading">
+            {{ p.project_name }}
+        </h4>
+    </a>
+    {% endfor %}
+</div>

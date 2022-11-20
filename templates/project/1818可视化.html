@@ -1,0 +1,446 @@
+<script type="text/javascript" src="/static/js/echarts.js"></script>
+<script type="text/javascript" src="/static/js/echarts-wordcloud.js"></script>
+<div id="18Analysis">
+
+    <!--评论月图-->
+    <div class="col-sm-7" id="comment-month" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart1 = echarts.init(document.getElementById('comment-month'));
+        const x_month = {{ json_data.p1.x_month|safe }};
+        const y_month = {{ json_data.p1.y_month|safe }};
+        const option1 = {
+            visualMap: {
+                show: true,
+                type: 'continuous'
+            },
+            title: {
+                left: "center",
+                text: "评论月分布折线图"
+            },
+            xAxis: {
+                data: x_month
+            },
+
+            yAxis: {
+                name: '观看统计'
+            },
+
+            series: {
+                type: 'line',
+                showSymbol: true,
+                data: y_month
+            },
+
+        };
+
+        chart1.setOption(option1);
+    </script>
+
+    <!--评论星期图-->
+    <div class='col-sm-5' id="comment-week" style="height: 400px"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        const chart2 = echarts.init(document.getElementById('comment-week'));
+        const x_week = {{ json_data.p1.x_week|safe }};
+        const y_week = {{ json_data.p1.y_week|safe }};
+        // 指定图表的配置项和数据
+        const option2 = {
+            title: {
+                text: '评论星期分布直方图'
+            },
+            tooltip: {},
+            legend: {
+                data: ['评论数']
+            },
+            xAxis: {
+                data: x_week
+            },
+            yAxis: {
+                name: '观看统计'
+            },
+            series: [
+                {
+                    name: '评论数',
+                    type: 'bar',
+                    data: y_week
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        chart2.setOption(option2);
+    </script>
+
+    <!--评论性别扇图-->
+    <diV class="col-sm-3" id="comment-sex" style="height: 400px"></diV>
+    <script type="text/javascript">
+        const chart3 = echarts.init(document.getElementById('comment-sex'));
+        const x_sex = {{ json_data.p1.x_sex|safe }};
+        const y_sex = {{ json_data.p1.y_sex }};
+        const data_sex =
+        {{ json_data.p1.data_sex|safe }}
+        const option3 = {
+            legend: {
+                top: 'bottom',
+            },
+            title: {
+                text: '性别饼图',
+                left: 'center'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series: [
+                {
+                    type: 'pie',
+                    radius: '50%',
+                    center: ['50%', '50%'],
+                    data: data_sex,
+                    roseType: 'area',
+                    itemStyle: {
+                        borderRadius: 3
+                    },
+                }
+            ]
+        };
+        chart3.setOption(option3);
+    </script>
+
+    <!--24小时男女观看情况-->
+    <div class="col-sm-9" id="comment-sex-24" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart4 = echarts.init(document.getElementById('comment-sex-24'));
+        const x_hour ={{ json_data.p1.x_hour }};
+        const y_male_hour ={{ json_data.p1.y_male_hour }};
+        const y_female_hour ={{ json_data.p1.y_female_hour }};
+
+        const option4 = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow',
+                    label: {
+                        show: true
+                    }
+                }
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: 'bar'},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            legend: {
+                data: ['男性24小时观看分布', '女性24小时观看分布'],
+                itemGap: 5
+            },
+            grid: {
+                top: '12%',
+                left: '1%',
+                right: '10%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    data: x_hour
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '观看统计'
+                }
+            ],
+            series: [
+                {
+                    name: '男性24小时观看分布',
+                    type: 'bar',
+                    data: y_male_hour
+                },
+                {
+                    name: '女性24小时观看分布',
+                    type: 'bar',
+                    data: y_female_hour
+                }
+            ]
+        };
+        chart4.setOption(option4);
+    </script>
+
+    <!--等级-点赞关系-->
+    <div class="col-sm-4" id="level_like" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart5 = echarts.init(document.getElementById('level_like'));
+        const x_lv = {{ json_data.p1.x_lv }};
+        const y_like_lv = {{ json_data.p1.y_like_lv }};
+        const option5 = {
+            title: [
+                {
+                    text: '等级-点赞比较'
+                }
+            ],
+            polar: {
+                radius: [30, '80%']
+            },
+            angleAxis: {
+                startAngle: 75
+            },
+            radiusAxis: {
+                type: 'category',
+                data: x_lv
+            },
+            tooltip: {},
+            series: {
+                type: 'bar',
+                data: y_like_lv,
+                coordinateSystem: 'polar',
+                label: {
+                    show: false,
+                    position: 'middle',
+                    formatter: '{b}: {c}'
+                }
+            }
+        };
+        chart5.setOption(option5);
+    </script>
+
+    <!--热门评论漏斗图-->
+    <div class="col-sm-4" id="comment-10" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart6 = echarts.init(document.getElementById('comment-10'));
+        x_comment_10 = {{ json_data.p1.x_comment_10|safe }};
+        y_comment_10 = {{ json_data.p1.y_comment_10 }};
+        const option6 = {
+            title: {
+                text: '热评前十'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b} : {c}'
+            },
+            series: [
+                {
+                    type: 'funnel',
+                    left: '10%',
+                    top: 60,
+                    bottom: 60,
+                    width: '80%',
+                    min: 0,
+                    max: 10000,
+                    minSize: '0%',
+                    maxSize: '100%',
+                    sort: 'descending',
+                    gap: 2,
+                    label: {
+                        show: false,
+                        position: 'inside'
+                    },
+                    labelLine: {
+                        length: 10,
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    itemStyle: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: 20
+                        }
+                    },
+                    data: {{ json_data.p1.data_comment_10|safe }}
+                }
+            ]
+        };
+        chart6.setOption(option6);
+    </script>
+
+
+    <!--评论词云图-->
+    <div class="col-sm-4" id="wordCloud" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart7 = echarts.init(document.getElementById('wordCloud'));
+        const wordcloud_data = {{ json_data.p1.wordcloud_data|safe }};
+        const option7 = {
+            title: {
+                text: '热词云图',
+                left: 'center'
+            },
+            series: [
+                {
+                    type: 'wordCloud',
+                    shape: 'circle',
+                    sizeRange: [12, 60],
+                    rotationRange: [-90, 90],
+                    rotationStep: 45,
+                    gridSize: 8,
+                    drawOutOfBound: false,
+                    textStyle: {
+                        fontFamily: 'sans-serif',
+                        fontWeight: 'bold',
+                        // Color can be a callback function or a color string
+                        color: function () {
+                            // Random color
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160)
+                            ].join(',') + ')';
+                        }
+                    },
+                    data: wordcloud_data
+                }
+            ]
+        };
+        chart7.setOption(option7);
+    </script>
+
+
+    <!--箱线图-->
+    <div class="col-sm-6" id="lv_box" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart8 = echarts.init(document.getElementById('lv_box'));
+        const data_lv = {{ json_data.p1.data_lv }};
+        const option8 = {
+            title: [
+                {
+                    text: '等级点赞箱线图',
+                    left: 'center'
+                }
+            ],
+            dataset: [
+                {
+                    // prettier-ignore
+                    source: data_lv
+                },
+                {
+                    transform: {
+                        type: 'boxplot',
+                        config: {itemNameFormatter: 'level {value}'}
+                    }
+                },
+                {
+                    fromDatasetIndex: 1,
+                    fromTransformResult: 1
+                }
+            ],
+            tooltip: {
+                trigger: 'item',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            grid: {
+                left: '10%',
+                right: '10%',
+                bottom: '15%'
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: true,
+                nameGap: 30,
+                splitArea: {
+                    show: false
+                },
+                splitLine: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: 'like',
+                splitArea: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    name: 'box',
+                    type: 'boxplot',
+                    datasetIndex: 1
+                },
+                {
+                    name: 'scatter',
+                    type: 'scatter',
+                    datasetIndex: 2
+                }
+            ]
+        };
+        chart8.setOption(option8);
+    </script>
+
+    <!--关键词热力图-->
+    <div class="col-sm-6" id="hot_show" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart9 = echarts.init(document.getElementById('hot_show'));
+        const x_hot = {{ json_data.p1.x_hot|safe }};
+        const y_hot = {{ json_data.p1.y_hot }};
+        const data_hot = {{ json_data.p1.data_hot }};
+        const option9 = {
+            title: [
+                {
+                    text: '关键词关系热力图',
+                    left: 'center'
+                }
+            ],
+            tooltip: {},
+            xAxis: {
+                data: x_hot,
+                axisLabel: {
+                    interval: 'auto',
+                    rotate: 50
+                }
+            },
+            yAxis: {
+                data: x_hot
+            },
+            visualMap: {
+                type: 'piecewise',
+                min: 0,
+                max: 1,
+                left: 'right',
+                top: 'center',
+                calculable: true,
+                realtime: false,
+                splitNumber: 8,
+                inRange: {
+                    color: [
+                        '#ffffff',
+                        '#ffffcc',
+                        '#ffff99',
+                        '#ffff66',
+                        '#ffff33',
+                        '#ffff00',
+                        '#ffcc00',
+                        '#ff9900',
+                        '#ff6600',
+                        '#ff3300',
+                        '#ff0000'
+                    ]
+                }
+            },
+            series: [
+                {
+                    name: 'Gaussian',
+                    type: 'heatmap',
+                    data: data_hot,
+                }
+            ]
+        };
+        chart9.setOption(option9);
+    </script>
+</div>
