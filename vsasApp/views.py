@@ -7,6 +7,10 @@ from django.shortcuts import render, redirect, reverse
 from vsasApp import models
 import json
 
+f = open('./data/json_data.json')
+json_data = json.load(f)
+f.close()
+
 def login(request):
     if request.method == 'POST':
         # 获取用户名和密码
@@ -42,9 +46,6 @@ def index(request, username, where):
 
 # 项目展示（数据都往这里传递吧）
 def projectShow(request, username, project_name):
-    f = open('./data/json_data.json')
-    json_data = json.load(f)
-    f.close()
     print(json_data)
     return render(request, 'index.html', {
         'username': username,

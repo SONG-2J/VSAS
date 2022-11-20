@@ -2,5 +2,186 @@
 <script type="text/javascript" src="/static/js/echarts-wordcloud.js"></script>
 
 <div id="18Emotion">
+    <!--情感统计-->
+    <div class="col-sm-6" id="score_count" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart1 = echarts.init(document.getElementById('score_count'));
+        const x_score_label = {{ json_data.p2.x_score_label|safe }};
+        const cmt_score_count = {{ json_data.p2.cmt_score.count }};
+        const brg_score_count = {{ json_data.p2.brg_score.count }};
+        const option1 = {
+            title: {
+                text: '情感统计直方图'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {},
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: '统计数量',
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                name: '情感区间',
+                type: 'category',
+                data: x_score_label
+            },
+            series: [
+                {
+                    name: '弹幕',
+                    type: 'bar',
+                    data: brg_score_count
+                },
+                {
+                    name: '评论',
+                    type: 'bar',
+                    data: cmt_score_count
+                }
+            ]
+        };
+        chart1.setOption(option1);
+    </script>
 
+    <!--时间情感分析-->
+    <div class="col-sm-6" id="score_5" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart2 = echarts.init(document.getElementById('score_5'));
+        const x_score_5 = {{ json_data.p2.x_score_5 }};
+        const y_score_5 = {{ json_data.p2.y_score_5 }};
+        const option2 = {
+            title: {
+                text: "第五集弹幕情感变化",
+                left: 'center'
+            },
+            xAxis: {
+                name: '时间段',
+                type: 'category',
+                boundaryGap: true,
+                data: x_score_5
+            },
+            yAxis: {
+                name: '情感均值',
+                type: 'value',
+            },
+            visualMap: {
+                type: 'piecewise',
+                show: true,
+                dimension: 0,
+                seriesIndex: 0,
+                pieces: [
+                    {
+                        gt: 4,
+                        lt: 10,
+                        color: '#ee934c'
+                    },
+                    {
+                        gt: 16,
+                        lt: 20,
+                        color: '#ee934c'
+                    }
+                ]
+            },
+            series: [
+                {
+                    type: 'line',
+                    smooth: 0.6,
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#3bc371',
+                        width: 4
+                    },
+                    markLine: {
+                        symbol: ['none', 'none'],
+                        label: {show: false},
+                        data: [{xAxis: 4}, {xAxis: 10}, {xAxis: 16}, {xAxis: 20}]
+                    },
+                    areaStyle: {},
+                    data: y_score_5
+                }
+            ]
+        };
+        chart2.setOption(option2);
+    </script>
+
+
+    <!--总体情感-->
+    <div class="col-sm-3" id="pan_show" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart3 = echarts.init(document.getElementById('pan_show'));
+        const option3 = {
+            title: {
+                text: '平均情感仪表盘',
+                left: 'center'
+            },
+            tooltip: {
+                formatter: '{a} <br/>{b} : {c}%'
+            },
+            series: [
+                {
+                    name: '平均得分',
+                    type: 'gauge',
+                    progress: {
+                        show: true
+                    },
+                    detail: {
+                        valueAnimation: true,
+                        formatter: '{value}'
+                    },
+                    data: [
+                        {
+                            value: 72.26,
+                            name: 'MEAN_SCORE'
+                        }
+                    ]
+                }
+            ]
+        };
+        chart3.setOption(option3);
+    </script>
+
+    <!--情感词云-->
+    <div class="col-sm-9" id="feel_cloud" style="height: 400px"></div>
+    <script type="text/javascript">
+        const chart4 = echarts.init(document.getElementById('feel_cloud'));
+        const feel_data = {{ json_data.p2.wordcloud_feel|safe }}
+        const option4 = {
+            title: {
+                text: '情感词云图',
+                left: 'center'
+            },
+            series: [
+                {
+                    type: 'wordCloud',
+                    shape: 'circle',
+                    gridSize: 1,
+                    sizeRange: [10,15],
+                    textStyle: {
+                        fontFamily: 'sans-serif',
+                        fontWeight: 'bold',
+                        // Color can be a callback function or a color string
+                        color: function () {
+                            // Random color
+                            return 'rgb(' + [
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160),
+                                Math.round(Math.random() * 160)
+                            ].join(',') + ')';
+                        }
+                    },
+                    data: feel_data
+                }
+            ]
+        };
+        chart4.setOption(option4);
+    </script>
 </div>
