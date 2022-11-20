@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">预览</div>
+
+    <!-- Table -->
+    <table class="table">
+        {% for col in table_data %}
+            <tr>
+                {% for row in col %}
+                    <td>{{ row }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>

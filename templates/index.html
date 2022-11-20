@@ -21,6 +21,10 @@
 
     <!--显示部分-->
     <div class="col-sm-11 thumbnail pre-scrollable" style="max-height: 750px" id="show">
+        {% if where == "DashBoard" %}
+            {% include 'show/dashboard.html' %}
+        {% endif %}
+
         {%  if where == 'Project'  %}
             {% if project_name is None %}
                  {% include 'show/project.html' %}
@@ -28,6 +32,14 @@
                 {% include 'project/1818可视化.html' %}
             {% elif project_name == '1818情感分析' %}
                 {% include 'project/1818情感分析.html' %}
+            {% endif %}
+        {% endif %}
+
+        {% if where == 'Table' %}
+            {% if table_name is None %}
+                {% include 'show/table.html' %}
+            {% else %}
+                {% include 'table/preview.html' %}
             {% endif %}
         {% endif %}
     </div>

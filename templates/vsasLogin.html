@@ -5,14 +5,15 @@
     <title>vsasLogin</title>
     {% include 'tools.html' %}
 </head>
-<body>
-<div class="container col-center">
-    <div class="container low-center" style="width: 500px;height: 300px;">
+<body style="background-image: url('/static/images/bg.jpg');background-repeat: repeat">
+<div class="container col-center col-sm-12">
+    <div style="height: 300px"></div>
+    <div class="container col-center col-sm-4 col-sm-offset-6">
         {% csrf_token %}
         <form id="loginForm" role="form" class="form-horizontal" method="post">
             <div class="form-group center-block">
-                <label for="username" class="col-sm-2 control-label">用户名: </label>
-                <div class="col-sm-3">
+                <label for="username" class="control-label">用户名: </label>
+                <div class="col-sm-12">
                     <input name="username" value="{{ username }}" id="username" type="text" class="form-control" style="width: 250px" placeholder="username">
                 </div>
                 <span id="spanErrMsg01" style="color: red">{{ errMsg_username }}</span>
@@ -21,8 +22,8 @@
             <br>
 
             <div class="form-group center-block">
-                <label for="password" class="col-sm-2 control-label">密码: </label>
-                <div class="col-sm-3">
+                <label for="password" class="control-label">密码: </label>
+                <div class="col-sm-12">
                     <input name="password" value="{{ password }}" id="password" type="text" class="form-control" style="width: 250px"  placeholder="password">
                 </div>
                 <span id="spanErrMsg02" style="color: red">{{ errMsg_password }}</span>
@@ -30,10 +31,10 @@
 
             <br>
 
-            <div class="container">
+            <div>
                 <button type="submit" class="btn btn-info">登录</button>
 
-                <button class="btn btn-default">注册</button>
+                <button class="btn btn-default col-sm-offset-4">注册</button>
             </div>
 
         </form>

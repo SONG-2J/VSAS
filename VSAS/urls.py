@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.login),
     path('index/<username>/<where>/', views.index, name='index'),
     path('index/<username>/Project/<project_name>/', views.projectShow, name='projectShow'),
+    path('index/<username>/Table/<table_name>/', views.tableShow, name='tableShow'),
     path('admin/', admin.site.urls),
     path('test/echarts', views.testEcharts)
 ]

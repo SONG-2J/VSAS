@@ -126,3 +126,14 @@ class UserProject(models.Model):
     class Meta:
         managed = True
         db_table = 'user_project'
+
+
+class UserTable(models.Model):
+    tid = models.IntegerField()
+    username = models.TextField()
+    table_name = models.TextField(blank=True, null=True)
+    table_path = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'user_table'
